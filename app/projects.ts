@@ -35,6 +35,9 @@ export type Project = {
   abstract: string[];
   heroImage?: string;
   heroAlt?: string;
+  heroAspectRatio?: string;
+  heroWidth?: number;
+  heroOffset?: number;
   sections: ProjectSection[];
 };
 
@@ -57,6 +60,7 @@ export const projects: Project[] = [
     ],
     heroImage: "/projects/ar-physics/hero.png",
     heroAlt: "Wire Field AR presentation cover",
+    heroAspectRatio: "1180 / 670",
     sections: [
       {
         id: "context",
@@ -138,6 +142,9 @@ export const projects: Project[] = [
     ],
     heroImage: "/projects/ar-memory-garden/hero.png",
     heroAlt: "AR Memory Garden visual identity",
+    heroAspectRatio: "1146 / 639",
+    heroWidth: 1146,
+    heroOffset: 17,
     sections: [
       {
         id: "context",
@@ -145,7 +152,7 @@ export const projects: Project[] = [
         paragraphs: [
           "The project explores how augmented reality can support personal reflection in a more visual and expressive way. Instead of keeping memories only as written diary entries, AR Memory Garden gives users a way to see their thoughts take physical form in the environment around them.",
         ],
-        media: [{ src: "/projects/ar-memory-garden/figma/context.png", alt: "AR Memory Garden audience and context of use" }],
+        media: [{ src: "/projects/ar-memory-garden/image-1.png", alt: "AR Memory Garden audience and context of use" }],
         mediaPlacement: "before",
         mediaWidth: 1134,
         mediaOffset: 28,
@@ -229,6 +236,7 @@ export const projects: Project[] = [
     ],
     heroImage: "/projects/petjojo/hero.png",
     heroAlt: "PetJoJo website shown on a laptop",
+    heroAspectRatio: "1180 / 790",
     sections: [
       {
         id: "context",
@@ -309,6 +317,7 @@ export const projects: Project[] = [
     ],
     heroImage: "/projects/brooklyn-seltzer/hero.png",
     heroAlt: "Walk with Walter digital museum tour",
+    heroAspectRatio: "1180 / 679",
     sections: [
       {
         id: "context",

@@ -1,7 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { projects, type Project } from "./projects";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 function ParticleTitle({ onParticleMove }: { onParticleMove: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -120,7 +123,7 @@ function ParticleTitle({ onParticleMove }: { onParticleMove: () => void }) {
 function ProjectCard({ project }: { project: Project }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   return (
-    <a
+    <Link
       ref={cardRef}
       className={`project-card project-${project.index}`}
       href={`/archive/${project.id}`}
@@ -147,7 +150,7 @@ function ProjectCard({ project }: { project: Project }) {
       <span className="card-meta"><span>{project.field}</span><span>{project.year}</span></span>
       <span className="card-title-row"><strong>{project.title}</strong><span aria-hidden="true">↗</span></span>
       <span className="card-summary">{project.summary}</span>
-    </a>
+    </Link>
   );
 }
 
@@ -239,7 +242,16 @@ export default function Home() {
       <section className="about section-shell" id="about">
         <div className="section-index"><span>01</span><span>ABOUT</span></div>
         <div className="about-grid">
-          <h2>I design for what’s next, turning complex systems into clear, human experiences.</h2>
+          <div className="about-intro">
+            <div className="about-profile">
+              <img src={`${basePath}/about/tiffany-yixuan-wang.jpg`} alt="Tiffany Yixuan Wang" />
+              <div className="about-identity">
+                <strong>Tiffany (Yixuan) Wang</strong>
+                <span>Human Computer Interaction Designer</span>
+              </div>
+            </div>
+            <h2>I design for what’s next, turning complex systems into clear, human experiences.</h2>
+          </div>
           <div className="about-copy">
             <p>I’m interested in how people make sense of new technology, especially AI. As an interaction designer, I work with complex systems and emerging ideas, turning them into experiences that feel clear, intuitive, and human. I care about designing products that not only work well, but also help people understand what they’re using and why it matters.</p>
             <div className="education">

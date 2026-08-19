@@ -3,11 +3,12 @@ import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const metadata: Metadata = {
   title: "Tiffany Wang — Interaction Designer",
   description: "Interaction designer shaping AI-powered experiences for complex, real-world workflows.",
-  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+  icons: { icon: `${basePath}/favicon.svg`, shortcut: `${basePath}/favicon.svg` },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -15,7 +16,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={geistMono.variable}>
         {children}
-        <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import { getProject, projects, type Project, type ProjectMedia } from "../../pro
 import "./project.css";
 
 type PageProps = { params: Promise<{ id: string }> };
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ id: project.id }));
@@ -16,9 +17,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 function ProjectVisual({ project, compact = false }: { project: Project; compact?: boolean }) {
   if (project.heroImage && !compact) {
+    const heroStyle: React.CSSProperties = {
+      aspectRatio: project.heroAspectRatio,
+      width: project.heroWidth ? `${(project.heroWidth / 1180) * 100}%` : undefined,
+      marginLeft: project.heroOffset ? `${(project.heroOffset / 1180) * 100}%` : undefined,
+    };
     return (
-      <figure className="case-visual case-visual--image">
-        <img src={project.heroImage} alt={project.heroAlt ?? `${project.title} project hero`} />
+      <figure className="case-visual case-visual--image" style={heroStyle}>
+        <img src={`${basePath}${project.heroImage}`} alt={project.heroAlt ?? `${project.title} project hero`} />
       </figure>
     );
   }
@@ -58,7 +64,7 @@ function CaseMedia({
       {media.map((item) => (
         <figure className="case-media" key={item.src} style={item.aspectRatio ? { aspectRatio: item.aspectRatio } : undefined}>
           <img
-            src={item.src}
+            src={`${basePath}${item.src}`}
             alt={item.alt}
             loading="lazy"
             style={{ height: item.aspectRatio ? "100%" : undefined, objectFit: item.fit }}
@@ -146,7 +152,9 @@ export default async function ProjectPage({ params }: PageProps) {
 
         <footer className="case-next case-container">
           <p>END OF PROJECT {project.index}</p>
-          <Link href={`/archive/${nextProject.id}`}><span>Next project</span><strong>{nextProject.title}</strong><i>→</i></Link>
+          {project.id !== "studio-index" && (
+            <Link href={`/archive/${nextProject.id}`}><span>Next project</span><strong>{nextProject.title}</strong><i>→</i></Link>
+          )}
         </footer>
       </article>
     </main>
