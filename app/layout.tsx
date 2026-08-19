@@ -1,0 +1,22 @@
+import type { Metadata } from "next";
+import { Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Tiffany Wang — Interaction Designer",
+  description: "Interaction designer shaping AI-powered experiences for complex, real-world workflows.",
+  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en">
+      <body className={geistMono.variable}>
+        {children}
+        <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
+      </body>
+    </html>
+  );
+}
