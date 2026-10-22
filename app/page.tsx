@@ -141,11 +141,22 @@ function ProjectCard({ project }: { project: Project }) {
       }}
       aria-label={`Open project: ${project.title}`}
     >
-      <span className="card-visual" aria-hidden="true">
-        <span className="visual-orbit" />
-        <span className="visual-signal" />
-        <span className="visual-grid" />
-        <span className="visual-code">{project.index} / SIGNAL</span>
+      <span className="card-visual card-visual--cover" aria-hidden="true">
+        {project.heroImage ? (
+          <img
+            className="card-cover-image"
+            src={`${basePath}${project.heroImage}`}
+            alt=""
+            loading="lazy"
+          />
+        ) : (
+          <>
+            <span className="visual-orbit" />
+            <span className="visual-signal" />
+            <span className="visual-grid" />
+            <span className="visual-code">{project.index} / SIGNAL</span>
+          </>
+        )}
       </span>
       <span className="card-meta"><span>{project.field}</span><span>{project.year}</span></span>
       <span className="card-title-row"><strong>{project.title}</strong><span aria-hidden="true">↗</span></span>
