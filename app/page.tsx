@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { projects, type Project } from "./projects";
+import { homeCopy, localizeProject } from "./i18n";
+import { LanguageToggle, useLanguage, type Language } from "./language";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
@@ -120,8 +122,12 @@ function ParticleTitle({ onParticleMove }: { onParticleMove: () => void }) {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, language }: { project: Project; language: Language }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
+  const localized = localizeProject(project, language);
+  const coverImage = language === "zh" && project.pdfPortfolio
+    ? `${project.pdfPortfolio.folder}/page-01.jpg`
+    : project.heroImage;
   return (
     <Link
       ref={cardRef}
@@ -139,13 +145,13 @@ function ProjectCard({ project }: { project: Project }) {
         event.currentTarget.style.setProperty("--rx", "0deg");
         event.currentTarget.style.setProperty("--ry", "0deg");
       }}
-      aria-label={`Open project: ${project.title}`}
+      aria-label={`${language === "zh" ? "打开项目" : "Open project"}: ${localized.title}`}
     >
       <span className="card-visual card-visual--cover" aria-hidden="true">
-        {project.heroImage ? (
+        {coverImage ? (
           <img
-            className="card-cover-image"
-            src={`${basePath}${project.heroImage}`}
+            className={`card-cover-image ${language === "zh" && project.pdfPortfolio ? "is-pdf-page" : ""}`}
+            src={`${basePath}${coverImage}`}
             alt=""
             loading="lazy"
           />
@@ -158,14 +164,16 @@ function ProjectCard({ project }: { project: Project }) {
           </>
         )}
       </span>
-      <span className="card-meta"><span>{project.field}</span><span>{project.year}</span></span>
-      <span className="card-title-row"><strong>{project.title}</strong><span aria-hidden="true">↗</span></span>
-      <span className="card-summary">{project.summary}</span>
+      <span className="card-meta"><span>{localized.field}</span><span>{project.year}</span></span>
+      <span className="card-title-row"><strong>{localized.title}</strong><span aria-hidden="true">↗</span></span>
+      <span className="card-summary">{localized.summary}</span>
     </Link>
   );
 }
 
 export default function Home() {
+  const { language } = useLanguage();
+  const copy = homeCopy[language];
   const [soundOn, setSoundOn] = useState(false);
   const audioRef = useRef<AudioContext | null>(null);
   const lastNoteRef = useRef(0);
@@ -222,10 +230,11 @@ export default function Home() {
       <header className="site-header">
         <a className="site-mark" href="#top" aria-label="Tiffany's Archive home">Tiffany’s Archive</a>
         <nav aria-label="Primary navigation">
-          <a href="#about">About</a>
-          <a href="#archive">Archive</a>
-          <a href="#focus">Focus</a>
-          <a href="#contact">Contact</a>
+          <a href="#about">{copy.nav[0]}</a>
+          <a href="#archive">{copy.nav[1]}</a>
+          <a href="#focus">{copy.nav[2]}</a>
+          <a href="#contact">{copy.nav[3]}</a>
+          <LanguageToggle compact />
         </nav>
       </header>
 
@@ -241,32 +250,32 @@ export default function Home() {
         <span className="system-tag tag-local">LOCAL TIME / EST</span>
         <button className={`sound-toggle ${soundOn ? "is-on" : ""}`} onClick={toggleSound} aria-pressed={soundOn}>
           <span className="sound-bars" aria-hidden="true"><i /><i /><i /></span>
-          Sound {soundOn ? "on" : "off"}
+          {copy.sound} {soundOn ? copy.on : copy.off}
         </button>
         <div className="hero-content">
           <ParticleTitle onParticleMove={playNote} />
-          <p className="hero-subtitle">Interaction designer shaping AI-powered experiences for complex, real-world workflows across technology, healthcare, education, entertainment, and beyond.</p>
+          <p className="hero-subtitle">{copy.heroSubtitle}</p>
         </div>
-        <a className="scroll-cue" href="#about"><span>ENTER ARCHIVE</span><i aria-hidden="true">↓</i></a>
+        <a className="scroll-cue" href="#about"><span>{copy.enter}</span><i aria-hidden="true">↓</i></a>
       </section>
 
       <section className="about section-shell" id="about">
-        <div className="section-index"><span>01</span><span>ABOUT</span></div>
+        <div className="section-index"><span>01</span><span>{copy.about}</span></div>
         <div className="about-grid">
           <div className="about-intro">
             <div className="about-profile">
               <img src={`${basePath}/about/tiffany-yixuan-wang.jpg`} alt="Tiffany Yixuan Wang" />
               <div className="about-identity">
                 <strong>Tiffany (Yixuan) Wang</strong>
-                <span>Human Computer Interaction Designer</span>
+                <span>{copy.role}</span>
               </div>
             </div>
-            <h2>I design for what’s next, turning complex systems into clear, human experiences.</h2>
+            <h2>{copy.aboutTitle}</h2>
           </div>
           <div className="about-copy">
-            <p>I’m interested in how people make sense of new technology, especially AI. As an interaction designer, I work with complex systems and emerging ideas, turning them into experiences that feel clear, intuitive, and human. I care about designing products that not only work well, but also help people understand what they’re using and why it matters.</p>
+            <p>{copy.aboutBody}</p>
             <div className="education">
-              <span>EDUCATION</span>
+              <span>{copy.education}</span>
               <strong>New York University (NYU), New York</strong>
             </div>
           </div>
@@ -274,25 +283,23 @@ export default function Home() {
       </section>
 
       <section className="focus section-shell" id="focus">
-        <div className="section-index"><span>02</span><span>FOCUS</span></div>
+        <div className="section-index"><span>02</span><span>{copy.focus}</span></div>
         <div className="focus-list">
-          <article><span>01</span><h3>Human–AI Interaction</h3><p>Designing legible, controllable relationships between people and adaptive systems.</p></article>
-          <article><span>02</span><h3>Complex Workflows</h3><p>Finding calm structure inside high-stakes tools, layered decisions, and fragmented information.</p></article>
-          <article><span>03</span><h3>Emerging Experiences</h3><p>Prototyping new modes of interaction across spatial, ambient, and multimodal environments.</p></article>
+          {copy.focusItems.map((item, index) => <article key={item[0]}><span>{String(index + 1).padStart(2, "0")}</span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}
         </div>
       </section>
 
       <section className="archive section-shell" id="archive">
-        <div className="section-index"><span>03</span><span>SELECTED ARCHIVE / 04</span></div>
-        <div className="archive-heading"><h2>Work</h2><p>Four explorations across systems, intelligence, care, and culture. Select a project to enter its field notes.</p></div>
+        <div className="section-index"><span>03</span><span>{copy.archiveLabel}</span></div>
+        <div className="archive-heading"><h2>{copy.work}</h2><p>{copy.workBody}</p></div>
         <div className="project-grid">
-          {projects.slice(0, 4).map((project) => <ProjectCard key={project.id} project={project} />)}
+          {projects.slice(0, 4).map((project) => <ProjectCard key={project.id} project={project} language={language} />)}
         </div>
       </section>
 
       <footer id="contact">
-        <div><span>AVAILABLE FOR SELECT COLLABORATIONS</span><h2>Let’s make complex things feel clear.</h2></div>
-        <a href="mailto:tiffiyixuan0120@gmail.com">Contact: tiffiyixuan0120@gmail.com <span>↗</span></a>
+        <div><span>{copy.available}</span><h2>{copy.contactTitle}</h2></div>
+        <a href="mailto:tiffiyixuan0120@gmail.com">{copy.contact}: tiffiyixuan0120@gmail.com <span>↗</span></a>
         <p>© 2026 TIFFANY WANG <span>NEW YORK / 08:13</span></p>
       </footer>
 

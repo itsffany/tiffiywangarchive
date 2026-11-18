@@ -38,6 +38,11 @@ export type Project = {
   heroAspectRatio?: string;
   heroWidth?: number;
   heroOffset?: number;
+  pdfPortfolio?: {
+    folder: string;
+    pageCount: number;
+    pdf: string;
+  };
   sections: ProjectSection[];
 };
 
@@ -61,6 +66,11 @@ export const projects: Project[] = [
     heroImage: "/projects/ar-physics/hero.png",
     heroAlt: "Wire Field AR presentation cover",
     heroAspectRatio: "1180 / 670",
+    pdfPortfolio: {
+      folder: "/projects/pdf-portfolios/wire-field",
+      pageCount: 11,
+      pdf: "/pdfs/wire-field-ar-zh.pdf",
+    },
     sections: [
       {
         id: "context",
@@ -237,6 +247,11 @@ export const projects: Project[] = [
     heroImage: "/projects/petjojo/hero.png",
     heroAlt: "PetJoJo website shown on a laptop",
     heroAspectRatio: "1180 / 790",
+    pdfPortfolio: {
+      folder: "/projects/pdf-portfolios/petjojo",
+      pageCount: 14,
+      pdf: "/pdfs/petjojo-zh.pdf",
+    },
     sections: [
       {
         id: "context",
@@ -318,6 +333,11 @@ export const projects: Project[] = [
     heroImage: "/projects/brooklyn-seltzer/hero.png",
     heroAlt: "Walk with Walter digital museum tour",
     heroAspectRatio: "1180 / 679",
+    pdfPortfolio: {
+      folder: "/projects/pdf-portfolios/walter",
+      pageCount: 12,
+      pdf: "/pdfs/walk-with-walter-zh.pdf",
+    },
     sections: [
       {
         id: "context",

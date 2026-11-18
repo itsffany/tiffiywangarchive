@@ -37,5 +37,21 @@
 .case-external-link:hover { color: #fff; border-color: #b9c8f2; }
 .case-external-link:hover span { transform: translate(3px, -3px); }
 
+.pdf-case-header { padding-top: clamp(145px, 16vw, 210px); padding-bottom: 64px; }
+.pdf-case-header .case-back { margin-bottom: 58px; }
+.pdf-case-title-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px; align-items: end; }
+.pdf-case-title-row h1 { margin: 18px 0 18px; font-size: clamp(52px, 8vw, 112px); line-height: .92; letter-spacing: -.065em; font-weight: 500; }
+.pdf-case-title-row p:not(.case-kicker) { max-width: 750px; margin: 0; color: #9ba4b7; font-size: clamp(16px, 1.7vw, 22px); line-height: 1.6; }
+.pdf-download { display: inline-flex; align-items: center; gap: 14px; padding: 13px 0 10px; border-bottom: 1px solid #52618a; color: #c0cae5; font-size: 14px; white-space: nowrap; transition: color .3s ease, border-color .3s ease; }
+.pdf-download:hover { color: #fff; border-color: #c8d4f2; }
+.pdf-download span { font-size: 17px; }
+.pdf-portfolio { padding-top: 34px; padding-bottom: 30px; }
+.pdf-portfolio-meta { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; color: #67738e; font: 9px/1 var(--font-geist-mono), monospace; letter-spacing: .15em; text-transform: uppercase; }
+.pdf-page { margin: 0 0 30px; border: 1px solid rgba(170,184,224,.15); border-radius: 10px; overflow: hidden; background: #f5f4f1; box-shadow: 0 18px 70px rgba(0,0,0,.28); }
+.pdf-page img { display: block; width: 100%; height: auto; }
+.pdf-page figcaption { padding: 10px 14px; border-top: 1px solid rgba(170,184,224,.14); background: #080a10; color: #626d86; text-align: right; font: 8px/1 var(--font-geist-mono), monospace; letter-spacing: .12em; }
+
 @media(max-width:800px){.case-media-grid{width:100%!important;margin-left:0!important;margin-top:55px;gap:12px}}
 @media(max-width:540px){.case-media-grid--grid{grid-template-columns:1fr!important}.case-media{border-radius:10px}}
+@media(max-width:800px){.pdf-case-header{padding-top:120px;padding-bottom:45px}.pdf-case-title-row{grid-template-columns:1fr;gap:28px}.pdf-download{width:max-content}.pdf-page{margin-bottom:16px;border-radius:7px}}
+@media(max-width:540px){.pdf-case-title-row h1{font-size:14vw}.pdf-case-title-row p:not(.case-kicker){font-size:15px}.pdf-portfolio{width:calc(100% - 20px)}.pdf-page{margin-bottom:10px}.pdf-page figcaption{padding:8px 10px}}
