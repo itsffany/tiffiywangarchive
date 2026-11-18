@@ -66,7 +66,7 @@ export const projectUi = {
     menu: "MENU",
     end: "END OF PROJECT",
     next: "Next project",
-    pdfLabel: "Chinese portfolio",
+    pdfLabel: "Project portfolio",
     download: "Download PDF",
   },
   zh: {

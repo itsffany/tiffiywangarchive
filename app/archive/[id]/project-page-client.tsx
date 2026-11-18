@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { localizeProject, projectUi } from "../../i18n";
 import { LanguageToggle, useLanguage } from "../../language";
+import { portfolioCopy } from "../../portfolio-copy";
 import type { Project, ProjectMedia } from "../../projects";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -105,10 +106,12 @@ function ProjectFooter({ project, nextProject }: { project: Project; nextProject
 }
 
 function PdfPortfolio({ project, nextProject }: { project: Project; nextProject: Project }) {
+  const { language } = useLanguage();
   const portfolio = project.pdfPortfolio!;
-  const localized = localizeProject(project, "zh");
-  const ui = projectUi.zh;
+  const localized = localizeProject(project, language);
+  const ui = projectUi[language];
   const pages = Array.from({ length: portfolio.pageCount }, (_, index) => index + 1);
+  const englishPages = portfolioCopy[project.id];
   return (
     <main className="case-page case-page--pdf">
       <SiteHeader />
@@ -121,24 +124,46 @@ function PdfPortfolio({ project, nextProject }: { project: Project; nextProject:
               <h1>{localized.title}</h1>
               <p>{localized.summary}</p>
             </div>
-            <a className="pdf-download" href={`${basePath}${portfolio.pdf}`} download>
-              {ui.download} <span>↓</span>
-            </a>
           </div>
         </header>
         <section className="pdf-portfolio case-container" aria-label={`${localized.title} ${ui.pdfLabel}`}>
-          <div className="pdf-portfolio-meta"><span>{ui.pdfLabel}</span><span>{portfolio.pageCount} 页</span></div>
-          {pages.map((page) => (
-            <figure className="pdf-page" key={page}>
-              <img
-                src={`${basePath}${portfolio.folder}/page-${String(page).padStart(2, "0")}.jpg`}
-                alt={`${localized.title} 中文作品集第 ${page} 页`}
-                loading={page <= 2 ? "eager" : "lazy"}
-                decoding="async"
-              />
-              <figcaption>{String(page).padStart(2, "0")} / {String(portfolio.pageCount).padStart(2, "0")}</figcaption>
-            </figure>
-          ))}
+          <div className="pdf-portfolio-meta">
+            <span>{language === "zh" ? "项目作品集" : "Project portfolio"}</span>
+            <span>{portfolio.pageCount} {language === "zh" ? "页" : "pages"}</span>
+          </div>
+          {language === "zh" ? pages.map((page) => (
+              <figure className="pdf-page" key={page}>
+                <img
+                  src={`${basePath}${portfolio.folder}/page-${String(page).padStart(2, "0")}.jpg`}
+                  alt={`${localized.title} 中文作品集第 ${page} 页`}
+                  loading={page <= 2 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+                <figcaption>{String(page).padStart(2, "0")} / {String(portfolio.pageCount).padStart(2, "0")}</figcaption>
+              </figure>
+            )) : englishPages?.map((page, index) => (
+              <article
+                className={`portfolio-page portfolio-page--${project.id}`}
+                key={`${project.id}-${index}`}
+                style={{ "--portfolio-reference": `url(${basePath}${portfolio.folder}/page-${String(index + 1).padStart(2, "0")}.jpg)` } as CSSProperties}
+              >
+                <span className="portfolio-page-reference" aria-hidden="true" />
+                <div className="portfolio-page-content">
+                  <p className="portfolio-page-section">{page.section}</p>
+                  <h2>{page.title}</h2>
+                  {page.intro && <p className="portfolio-page-intro">{page.intro}</p>}
+                  {page.columns && <div className="portfolio-page-columns">
+                    {page.columns.map((column, columnIndex) => <section key={`${column.title}-${columnIndex}`}>
+                      <span>{String(columnIndex + 1).padStart(2, "0")}</span>
+                      <h3>{column.title}</h3>
+                      {column.body.split("\n").map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
+                    </section>)}
+                  </div>}
+                  {page.note && <p className="portfolio-page-note">{page.note}</p>}
+                  <p className="portfolio-page-number">{String(index + 1).padStart(2, "0")} / {String(portfolio.pageCount).padStart(2, "0")}</p>
+                </div>
+              </article>
+            ))}
         </section>
         <ProjectFooter project={project} nextProject={nextProject} />
       </article>
@@ -148,7 +173,7 @@ function PdfPortfolio({ project, nextProject }: { project: Project; nextProject:
 
 export default function ProjectPageClient({ project, nextProject }: { project: Project; nextProject: Project }) {
   const { language } = useLanguage();
-  if (language === "zh" && project.pdfPortfolio) return <PdfPortfolio project={project} nextProject={nextProject} />;
+  if (project.pdfPortfolio) return <PdfPortfolio project={project} nextProject={nextProject} />;
 
   const localized = localizeProject(project, language);
   const ui = projectUi[language];

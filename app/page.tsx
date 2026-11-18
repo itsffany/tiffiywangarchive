@@ -150,7 +150,7 @@ function ProjectCard({ project, language }: { project: Project; language: Langua
       <span className="card-visual card-visual--cover" aria-hidden="true">
         {coverImage ? (
           <img
-            className={`card-cover-image ${language === "zh" && project.pdfPortfolio ? "is-pdf-page" : ""}`}
+            className={`card-cover-image ${project.pdfPortfolio ? "is-pdf-page" : ""}`}
             src={`${basePath}${coverImage}`}
             alt=""
             loading="lazy"
