@@ -125,8 +125,8 @@ function ParticleTitle({ onParticleMove }: { onParticleMove: () => void }) {
 function ProjectCard({ project, language }: { project: Project; language: Language }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const localized = localizeProject(project, language);
-  const coverImage = language === "zh" && project.pdfPortfolio
-    ? `${project.pdfPortfolio.folder}/page-01.jpg`
+  const coverImage = project.pdfPortfolio
+    ? `${project.pdfPortfolio.folder}${language === "en" ? "-en" : ""}/page-01.jpg`
     : project.heroImage;
   return (
     <Link

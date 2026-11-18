@@ -186,9 +186,9 @@ export const portfolioCopy: Record<string, PortfolioPageCopy[]> = {
       title: "Eight stops create a recognizable narrative arc",
       intro: "The published sequence moves from meeting Walter and his family, through the objects and culture of seltzer, and back to experience, preservation, and legacy.",
       columns: [
-        { title: "01 · Person and family", body: "1. Meet Walter the Seltzer Man\n2. A Family Connected by Seltzer" },
-        { title: "02 · Object and industry", body: "3. Seltzer as Comedic Prop\n4. A Love of Seltzer Siphons\n5. The Golden Age of Seltzer Men" },
-        { title: "03 · Experience and legacy", body: "6. An Unexpected Call from Hawaii\n7. Preserving Tradition\n8. Walter’s Wisdom" },
+        { title: "01 · Person and family", body: "" },
+        { title: "02 · Object and industry", body: "" },
+        { title: "03 · Experience and legacy", body: "" },
       ],
     },
     {
@@ -206,9 +206,12 @@ export const portfolioCopy: Record<string, PortfolioPageCopy[]> = {
       title: "From entering the guide to understanding a story—and back to the objects",
       intro: "The roughly 30-minute experience uses eight stops. The platform supplies the tools; the project organizes narrative order, media, and context.",
       columns: [
-        { title: "Enter and choose", body: "Set expectations with the guide’s subject, length, and scale, then preview numbered themes so visitors can follow the sequence or choose a stop." },
-        { title: "Watch and understand", body: "Begin with Walter’s voice, expression, and humor; add only the family, identity, and neighborhood context needed for that story." },
-        { title: "Reconnect and continue", body: "Use object imagery and map cues to connect the story to bottles, trucks, and places, then offer archival and cultural threads for deeper exploration." },
+        { title: "Enter the guide", body: "Set expectations with the subject, length, and number of stops." },
+        { title: "Choose a stop", body: "Preview numbered themes and follow the sequence or browse freely." },
+        { title: "Watch and listen", body: "Begin with Walter’s voice, expression, and humor." },
+        { title: "Add context", body: "Supply the family, identity, and neighborhood details needed for the story." },
+        { title: "Connect to objects", body: "Link the narrative to bottles, trucks, photographs, and places." },
+        { title: "Keep exploring", body: "Offer archival and cultural threads without interrupting the main story." },
       ],
     },
     {

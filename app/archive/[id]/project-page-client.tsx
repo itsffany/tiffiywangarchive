@@ -4,7 +4,6 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { localizeProject, projectUi } from "../../i18n";
 import { LanguageToggle, useLanguage } from "../../language";
-import { portfolioCopy } from "../../portfolio-copy";
 import type { Project, ProjectMedia } from "../../projects";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -111,9 +110,9 @@ function PdfPortfolio({ project, nextProject }: { project: Project; nextProject:
   const localized = localizeProject(project, language);
   const ui = projectUi[language];
   const pages = Array.from({ length: portfolio.pageCount }, (_, index) => index + 1);
-  const englishPages = portfolioCopy[project.id];
+  const pageFolder = language === "en" ? `${portfolio.folder}-en` : portfolio.folder;
   return (
-    <main className="case-page case-page--pdf">
+    <main className={`case-page case-page--pdf case-page--${project.id}`}>
       <SiteHeader />
       <article>
         <header className="pdf-case-header case-container">
@@ -131,39 +130,17 @@ function PdfPortfolio({ project, nextProject }: { project: Project; nextProject:
             <span>{language === "zh" ? "项目作品集" : "Project portfolio"}</span>
             <span>{portfolio.pageCount} {language === "zh" ? "页" : "pages"}</span>
           </div>
-          {language === "zh" ? pages.map((page) => (
-              <figure className="pdf-page" key={page}>
-                <img
-                  src={`${basePath}${portfolio.folder}/page-${String(page).padStart(2, "0")}.jpg`}
-                  alt={`${localized.title} 中文作品集第 ${page} 页`}
-                  loading={page <= 2 ? "eager" : "lazy"}
-                  decoding="async"
-                />
-                <figcaption>{String(page).padStart(2, "0")} / {String(portfolio.pageCount).padStart(2, "0")}</figcaption>
-              </figure>
-            )) : englishPages?.map((page, index) => (
-              <article
-                className={`portfolio-page portfolio-page--${project.id}`}
-                key={`${project.id}-${index}`}
-                style={{ "--portfolio-reference": `url(${basePath}${portfolio.folder}/page-${String(index + 1).padStart(2, "0")}.jpg)` } as CSSProperties}
-              >
-                <span className="portfolio-page-reference" aria-hidden="true" />
-                <div className="portfolio-page-content">
-                  <p className="portfolio-page-section">{page.section}</p>
-                  <h2>{page.title}</h2>
-                  {page.intro && <p className="portfolio-page-intro">{page.intro}</p>}
-                  {page.columns && <div className="portfolio-page-columns">
-                    {page.columns.map((column, columnIndex) => <section key={`${column.title}-${columnIndex}`}>
-                      <span>{String(columnIndex + 1).padStart(2, "0")}</span>
-                      <h3>{column.title}</h3>
-                      {column.body.split("\n").map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
-                    </section>)}
-                  </div>}
-                  {page.note && <p className="portfolio-page-note">{page.note}</p>}
-                  <p className="portfolio-page-number">{String(index + 1).padStart(2, "0")} / {String(portfolio.pageCount).padStart(2, "0")}</p>
-                </div>
-              </article>
-            ))}
+          {pages.map((page) => (
+            <figure className="pdf-page" key={`${language}-${page}`}>
+              <img
+                src={`${basePath}${pageFolder}/page-${String(page).padStart(2, "0")}.jpg`}
+                alt={language === "zh" ? `${localized.title} 中文作品集第 ${page} 页` : `${localized.title} portfolio page ${page}`}
+                loading={page <= 2 ? "eager" : "lazy"}
+                decoding="async"
+              />
+              <figcaption>{String(page).padStart(2, "0")} / {String(portfolio.pageCount).padStart(2, "0")}</figcaption>
+            </figure>
+          ))}
         </section>
         <ProjectFooter project={project} nextProject={nextProject} />
       </article>
