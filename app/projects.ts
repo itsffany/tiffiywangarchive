@@ -155,6 +155,11 @@ export const projects: Project[] = [
     heroAspectRatio: "1146 / 639",
     heroWidth: 1146,
     heroOffset: 17,
+    pdfPortfolio: {
+      folder: "/projects/pdf-portfolios/ar-memory-garden",
+      pageCount: 13,
+      pdf: "/pdfs/ar-memory-garden-zh.pdf",
+    },
     sections: [
       {
         id: "context",

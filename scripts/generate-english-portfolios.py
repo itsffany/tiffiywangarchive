@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 
 import pdfplumber
@@ -31,6 +32,13 @@ PROJECTS = {
         "ink": "#173033",
         "muted": "#597073",
         "accent": "#177681",
+    },
+    "atlas-operations": {
+        "slug": "ar-memory-garden",
+        "pdf": Path("/Users/tiffanywang/Desktop/AR_Memory_Garden_中文交互设计作品集.pdf"),
+        "ink": "#20261f",
+        "muted": "#636b61",
+        "accent": "#79a928",
     },
     "memory-field": {
         "slug": "petjojo",
@@ -67,6 +75,20 @@ ANCHORS = {
         10: [(.51, .34, .43, .14), (.51, .46, .43, .14), (.51, .61, .43, .27)],
         11: [(.05, .31, .90, .12), (.05, .44, .90, .12), (.05, .57, .90, .12), (.05, .70, .90, .16)],
         12: [(.04, .38, .27, .25), (.35, .38, .27, .25), (.67, .38, .28, .25)],
+    },
+    "atlas-operations": {
+        2: [(.52, .32, .42, .15), (.52, .51, .42, .15), (.52, .70, .42, .16)],
+        3: [(.09, .33, .27, .34), (.41, .33, .27, .34), (.72, .33, .23, .34)],
+        4: [(.07, .74, .25, .17), (.39, .74, .25, .17), (.70, .74, .25, .17)],
+        5: [(.04, .80, .43, .13), (.53, .80, .42, .13)],
+        6: [(.07, .81, .25, .12), (.38, .81, .25, .12), (.72, .81, .23, .12)],
+        7: [(.04, .83, .27, .10), (.35, .83, .27, .10), (.67, .83, .28, .10)],
+        8: [(.75, .33, .20, .19), (.75, .58, .20, .19), (.46, .78, .49, .14)],
+        9: [(.70, .31, .25, .16), (.70, .50, .25, .16), (.70, .69, .25, .17)],
+        10: [(.09, .84, .22, .09), (.36, .84, .22, .09), (.64, .84, .22, .09)],
+        11: [(.07, .85, .24, .08), (.37, .85, .24, .08), (.67, .85, .24, .08)],
+        12: [(.06, .32, .41, .46), (.53, .32, .41, .46)],
+        13: [(.37, .31, .58, .16), (.37, .50, .58, .16), (.37, .70, .58, .17)],
     },
     "memory-field": {
         2: [(.64, .31, .30, .14), (.64, .48, .30, .14), (.64, .66, .30, .16)],
@@ -161,6 +183,10 @@ def draw_cover(draw: ImageDraw.ImageDraw, image: Image.Image, project_id: str, p
     elif project_id == "studio-index":
         fit_text(draw, page_copy["intro"], (int(.05*w), int(.62*h), int(.46*w), int(.72*h)), "#ffffff", int(.027*h), False)
         fit_text(draw, "CONTENT STRATEGY / EXPERIENCE STRUCTURE / UI·UX / VIDEO", (int(.05*w), int(.91*h), int(.55*w), int(.95*h)), "#d5e1df", int(.012*h), True)
+    elif project_id == "atlas-operations":
+        fit_text(draw, "Plant memories into everyday space", (int(.04*w), int(.49*h), int(.37*w), int(.56*h)), colors["ink"], int(.036*h), True)
+        fit_text(draw, "A virtual plant carries a personal memory into the physical world. Encounter it again in a familiar place and continue the relationship through interaction.", (int(.04*w), int(.59*h), int(.37*w), int(.73*h)), colors["muted"], int(.019*h))
+        fit_text(draw, "EXPERIENCE DESIGN / INTERACTION DESIGN / 3D ASSETS", (int(.04*w), int(.91*h), int(.40*w), int(.95*h)), colors["ink"], int(.012*h), True)
     else:
         fit_text(draw, "Clearer choices.\nMore confident purchases.", (int(.04*w), int(.32*h), int(.40*w), int(.44*h)), colors["ink"], int(.047*h), True)
         fit_text(draw, page_copy["columns"][0]["body"], (int(.04*w), int(.49*h), int(.40*w), int(.62*h)), colors["muted"], int(.018*h))
@@ -210,7 +236,12 @@ def render_project(project_id: str, config: dict, copy_pages: list[dict]) -> Non
 
 def main() -> None:
     copy = json.loads(COPY_PATH.read_text(encoding="utf-8"))
-    for project_id, config in PROJECTS.items():
+    selected = sys.argv[1:] or list(PROJECTS)
+    unknown = [project_id for project_id in selected if project_id not in PROJECTS]
+    if unknown:
+        raise SystemExit(f"Unknown project id(s): {', '.join(unknown)}")
+    for project_id in selected:
+        config = PROJECTS[project_id]
         render_project(project_id, config, copy[project_id])
 
 

@@ -127,6 +127,140 @@ export const portfolioCopy: Record<string, PortfolioPageCopy[]> = {
     },
   ],
 
+  "atlas-operations": [
+    {
+      section: "AR / Spatial storytelling / 2025",
+      title: "AR Memory Garden",
+      intro: "Plant memories into everyday space.",
+      columns: [
+        { title: "A memory takes form", body: "A virtual plant carries a personal memory into the physical world." },
+        { title: "A place becomes meaningful", body: "Encounter it again in a familiar environment and continue the relationship through interaction." },
+      ],
+      note: "Experience design · interaction design · 3D asset creation",
+    },
+    {
+      section: "01 / Project framing",
+      title: "Connecting personal memories to real-world places",
+      intro: "Memory Garden combines written reflections, digital plants, and physical surroundings into a spatial experience people can revisit.",
+      columns: [
+        { title: "Audience", body: "NYU students interested in digital art and interactive experiences, as well as anyone looking for a more expressive way to preserve everyday moments." },
+        { title: "Use context", body: "The concept begins in campus courtyards and personal spaces, turning familiar places into anchors for memory. A shared public garden is a future direction." },
+        { title: "Design goal", body: "Move beyond writing a memory: let people see it in space, interact with it, and create an emotional reason to return to that place." },
+      ],
+    },
+    {
+      section: "02 / Design approach",
+      title: "Using planting and care to structure the memory experience",
+      intro: "A plant gives an abstract memory a recognizable form. Planting connects it to place; care creates a reason to return and participate again.",
+      columns: [
+        { title: "01 · Memory takes form", body: "Words explain what the memory means, while the plant makes it recognizable in the camera view." },
+        { title: "02 · Place carries meaning", body: "Seeing the plant in a real environment ties the memory to the space the user currently occupies." },
+        { title: "03 · Interaction responds", body: "Heart and watering actions turn attention into participation, followed by visible feedback." },
+      ],
+      note: "Experience arc: write a memory -> enter the physical setting -> interact with the plant -> leave a reason to return.",
+    },
+    {
+      section: "02 / Design approach",
+      title: "Storyboard: from finding a place to expressing a memory",
+      intro: "Early concepts explored spatial selection and memory capture before the core journey was narrowed into a testable AR prototype.",
+      columns: [
+        { title: "01 · Observe the environment", body: "Look around for a place that feels appropriate for the memory." },
+        { title: "02 · Confirm where to plant", body: "Use a visible placement cue to show where the digital plant will appear." },
+        { title: "03 · Write the memory", body: "Give the plant a sentence or short story so it carries personal meaning." },
+      ],
+    },
+    {
+      section: "02 / Design approach",
+      title: "Making the return visit part of the memory",
+      intro: "The longer-term concept connects growth, revisiting, and care. The current prototype focuses on writing, placing the plant, and immediate interaction.",
+      columns: [
+        { title: "A plant that changes over time", body: "Growth could respond to time, emotion, or environmental conditions, giving people something new to discover when they return." },
+        { title: "Revisit and care", body: "At the original location, users could see the plant and its memory again, then continue the relationship through actions such as watering." },
+      ],
+    },
+    {
+      section: "03 / Production process",
+      title: "Bringing a digital plant into the live camera view",
+      intro: "The process moves from 3D construction to material studies and recorded AR scenes, showing how form design enters the spatial experience.",
+      columns: [
+        { title: "01 · Model structure", body: "Use the untextured model to check the relationship between petals, branches, and the central form." },
+        { title: "02 · Material expression", body: "Test how metallic, translucent, and pale surfaces reveal the model’s details." },
+        { title: "03 · AR context", body: "Evaluate scale and spatial presence against the ground, background, and changing camera angles." },
+      ],
+    },
+    {
+      section: "03 / Production process",
+      title: "Building a surreal internal structure through the plant silhouette",
+      intro: "Petals, fine branches, and a central axis create a recognizable botanical form, while wrapped, layered, and open structures give it a distinctly digital character.",
+      columns: [
+        { title: "Overall silhouette", body: "Petals unfold around the central axis to create a stable vertical composition." },
+        { title: "Layered detail", body: "Curved surfaces, intertwined forms, and negative space reward a closer view." },
+        { title: "Multi-angle review", body: "Check how branches and petals overlap from different viewpoints so the form remains readable in space." },
+      ],
+    },
+    {
+      section: "03 / Production process",
+      title: "Using reflection and transparency to emphasize a digital materiality",
+      intro: "The render preserves the model’s material system while added lighting reveals curvature, layering, and interior gaps before the asset enters AR.",
+      columns: [
+        { title: "Reflective surfaces", body: "Silver and pale-pink highlights clarify curved forms and separate the plant from the real grass around it." },
+        { title: "Transparency and negative space", body: "Light passing through translucent and open structures exposes the interior layers and highlights the need to test legibility against bright backgrounds." },
+        { title: "From render to environment", body: "The final effect must still be evaluated against real light, background contrast, camera movement, and screen size." },
+      ],
+    },
+    {
+      section: "03 / Experience",
+      title: "Memory input: explain what to capture before entering AR",
+      intro: "The opening screen uses a flower image, a writing field, and one planting action to keep the first step focused.",
+      columns: [
+        { title: "Prompt the memory", body: "Ask for a memory or story the user wants to preserve, connecting the plant to personal content from the beginning." },
+        { title: "Support a short response", body: "The recorded prototype enters “happy,” demonstrating the transition from prompt state to typed content." },
+        { title: "Make the next step clear", body: "Plant Your Memory Here completes the entry and moves the user into the AR camera view." },
+      ],
+    },
+    {
+      section: "03 / Experience",
+      title: "Spatial placement: let the plant share the frame with the real world",
+      intro: "The camera first reveals the surroundings, then introduces the digital plant. The physical background provides cues for scale, location, and viewing angle.",
+      columns: [
+        { title: "Observe the environment", body: "Read the ground and surrounding space before placing the digital object." },
+        { title: "Adjust the viewpoint", body: "Move the camera while maintaining a clear relationship between the plant and the ground plane." },
+        { title: "The plant appears", body: "Use the real setting as a spatial reference so the virtual plant feels anchored rather than overlaid." },
+      ],
+      note: "Design question: Is the placement clear before the plant appears, and does the ground relationship remain understandable as the camera moves?",
+    },
+    {
+      section: "03 / Experience",
+      title: "Care interactions: respond immediately to the user’s attention",
+      intro: "Heart and watering controls invite active participation, while expression and watering animations make each completed action visible.",
+      columns: [
+        { title: "Heart response", body: "An expressive reaction appears above the plant, acknowledging the user’s attention." },
+        { title: "Watering action", body: "A watering-can animation appears beside the plant to represent care." },
+        { title: "Return to observation", body: "After the animation, the plant remains available for viewing, exploration, and further interaction." },
+      ],
+    },
+    {
+      section: "Prototype scope and future system",
+      title: "Separating what the current prototype proves from the longer-term garden",
+      intro: "The recorded prototype demonstrates the core interaction. Persistent growth and shared spaces require additional data, state management, and validation.",
+      columns: [
+        { title: "Current prototype", body: "01 · Enter memory text and trigger planting\n02 · View the digital plant in a live camera scene\n03 · Receive animated feedback through heart and watering actions" },
+        { title: "Next-stage expansion", body: "01 · Save the memory and spatial location for return visits\n02 · Connect growth to time, emotion, or environmental state\n03 · Define public and private memories before exploring a shared garden" },
+      ],
+      note: "Technical direction: Blender for 3D assets; Lens Studio and WebAR were considered as delivery options. The next prototype should validate positioning, saved content, and changing states end to end.",
+    },
+    {
+      section: "Outcome and next steps",
+      title: "Turning remembrance into a spatial experience people can participate in",
+      intro: "Digital plants connect expression, observation, and care, exploring how personal memories can become part of an everyday environment.",
+      columns: [
+        { title: "Form and interaction express the idea together", body: "The plant is more than decoration. Written content gives it meaning, spatial placement brings it into the environment, and care feedback responds to participation." },
+        { title: "Validate comprehension first", body: "Observe whether people understand the writing prompt, planting action, and care controls—and whether they can locate and clearly view the plant on first use." },
+        { title: "Then validate continuity", body: "Test whether saving, revisiting, and state changes remain reliable. Before moving into public space, define how personal content is visible and managed." },
+      ],
+    },
+  ],
+
   "studio-index": [
     {
       section: "Brooklyn Seltzer Museum · Digital museum experience",

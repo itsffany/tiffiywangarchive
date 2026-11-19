@@ -54,6 +54,7 @@
 .case-page--pdf { --case-bg:#f2eef7; --case-ink:#241d32; --case-muted:#685f73; --case-accent:#7654d6; --case-line:rgba(67,48,98,.18); background:var(--case-bg); color:var(--case-ink); }
 .case-page--studio-index { --case-bg:#e8f0ef; --case-ink:#122e2c; --case-muted:#56706e; --case-accent:#177681; --case-line:rgba(23,85,88,.18); }
 .case-page--memory-field { --case-bg:#f3eedf; --case-ink:#332a21; --case-muted:#70675b; --case-accent:#ad7421; --case-line:rgba(105,76,37,.18); }
+.case-page--atlas-operations { --case-bg:#f0f5e8; --case-ink:#20261f; --case-muted:#626b60; --case-accent:#74a326; --case-line:rgba(104,143,45,.2); }
 .case-page--pdf .site-header { border-bottom-color:var(--case-line); background:color-mix(in srgb,var(--case-bg) 84%,transparent); color:var(--case-ink); }
 .case-page--pdf .site-header nav { color:var(--case-muted); }
 .case-page--pdf .site-header nav a::after { background:var(--case-ink); }
